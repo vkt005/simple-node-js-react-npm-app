@@ -13,8 +13,9 @@ pipeline {
         }
         stage('Test') {
             steps {
+
                 sh './jenkins/scripts/test.sh'
-                sshPublisher(publishers: [sshPublisherDesc(configName: 'UL-Client Ec2 1', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'demo', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '*.*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'UL-Client Ec2 1', sshRetry: [retries: 2, retryDelay: 10000], transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'demo', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '/Users/vivek/.jenkins/workspace/simple-node-js-react-npm-app/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
             }
         }
         stage('Deliver') {
